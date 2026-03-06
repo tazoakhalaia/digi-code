@@ -1,50 +1,41 @@
 import { Rectangle } from "pixi.js";
 import { ShapeModels } from "../models";
 import { GameView } from "../view";
+import { decreaseGravity, increaseGravity } from "../functions";
 
 export class GameController {
   private app = new GameView();
   private shapeModel = new ShapeModels();
 
+  private startFalling = false;
+
   private spawnRate = 1;
-  private gravityValue = 1;
 
   private increaseShape = document.getElementById("increaseShapes")!;
   private decreaseShape = document.getElementById("decreaseShapes")!;
   private shapesText = document.getElementById("shapesPerSecond")!;
 
-  private increaseGravityValue = document.getElementById("increaseGravity")!;
-  private decreaseGravity = document.getElementById("decreaseGravity")!;
-  private gravityText = document.getElementById("gravityValue")!;
-
   init() {
     this.app.init();
     this.containerEvent();
     this.increaseShapes();
-    this.increaseGravity();
+    increaseGravity(this.shapeModel);
+    decreaseGravity(this.shapeModel);
   }
 
   increaseShapes() {
-    this.increaseShape.addEventListener("click", () => {
+    this.increaseShape.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (this.startFalling) return;
       this.spawnRate++;
       this.shapesText.textContent = this.spawnRate.toString();
     });
 
-    this.decreaseShape.addEventListener("click", () => {
+    this.decreaseShape.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (this.startFalling) return;
       this.spawnRate = Math.max(1, this.spawnRate - 1);
       this.shapesText.textContent = this.spawnRate.toString();
-    });
-  }
-
-  increaseGravity() {
-    this.increaseGravityValue.addEventListener("click", () => {
-      this.gravityValue++;
-      this.gravityText.textContent = this.gravityValue.toString();
-    });
-
-    this.decreaseGravity.addEventListener("click", () => {
-      this.gravityValue = Math.max(0, this.gravityValue - 1);
-      this.gravityText.textContent = this.gravityValue.toString();
     });
   }
 
@@ -73,8 +64,24 @@ export class GameController {
     );
 
     this.app.container.on("pointerdown", (e) => {
+      if (this.startFalling) return;
+      this.startFalling = true;
       const { x, y } = e.global;
+
       this.randomShape(x, y);
+
+      let count = 1;
+
+      const spawnInterval = setInterval(() => {
+        if (count >= this.spawnRate) {
+          clearInterval(spawnInterval);
+          this.startFalling = false;
+          return;
+        }
+
+        this.randomShape(x + count * 20, y + count * 20);
+        count++;
+      }, 1000);
     });
   }
 }

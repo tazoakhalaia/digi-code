@@ -28,6 +28,10 @@ export class ShapeModels {
     });
   }
 
+  setGravity(value: number) {
+    this.gravity = value;
+  }
+
   createShape(
     shapeType: string,
     container: Container,
