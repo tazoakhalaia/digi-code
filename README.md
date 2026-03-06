@@ -63,3 +63,16 @@ npm run build
 # or
 yarn build
 ```
+
+## Screenshots / Working Example
+
+*Main game empty screen*
+
+<img src="public/assets/screenshots/empty.png" alt="Game running" width="900" height="400">
+
+*Main game screen with one shape*
+
+<img src="public/assets/screenshots/falling alert.png" alt="Game running" width="900" height="400">
+
+*Main game screen with more than one shape*
+<img src="public/assets/screenshots/shapes per second.png" alt="Game running" width="900" height="400">
