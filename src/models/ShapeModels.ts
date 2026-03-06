@@ -3,7 +3,7 @@ import { Graphics, Ticker, type Container } from "pixi.js";
 export class ShapeModels {
   private ticker = new Ticker();
   private shapes: Graphics[] = [];
-  private gravity = 2;
+  private gravity = 0.5;
   private groundY = window.innerHeight;
 
   constructor() {

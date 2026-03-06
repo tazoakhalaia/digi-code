@@ -4,3 +4,15 @@
   overflow: hidden;
   box-sizing: border-box;
 }
+
+#controls {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+}
+button {
+  padding: 8px 12px;
+  font-size: 14px;
+}

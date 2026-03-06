@@ -6,9 +6,46 @@ export class GameController {
   private app = new GameView();
   private shapeModel = new ShapeModels();
 
+  private spawnRate = 1;
+  private gravityValue = 1;
+
+  private increaseShape = document.getElementById("increaseShapes")!;
+  private decreaseShape = document.getElementById("decreaseShapes")!;
+  private shapesText = document.getElementById("shapesPerSecond")!;
+
+  private increaseGravityValue = document.getElementById("increaseGravity")!;
+  private decreaseGravity = document.getElementById("decreaseGravity")!;
+  private gravityText = document.getElementById("gravityValue")!;
+
   init() {
     this.app.init();
     this.containerEvent();
+    this.increaseShapes();
+    this.increaseGravity();
+  }
+
+  increaseShapes() {
+    this.increaseShape.addEventListener("click", () => {
+      this.spawnRate++;
+      this.shapesText.textContent = this.spawnRate.toString();
+    });
+
+    this.decreaseShape.addEventListener("click", () => {
+      this.spawnRate = Math.max(1, this.spawnRate - 1);
+      this.shapesText.textContent = this.spawnRate.toString();
+    });
+  }
+
+  increaseGravity() {
+    this.increaseGravityValue.addEventListener("click", () => {
+      this.gravityValue++;
+      this.gravityText.textContent = this.gravityValue.toString();
+    });
+
+    this.decreaseGravity.addEventListener("click", () => {
+      this.gravityValue = Math.max(0, this.gravityValue - 1);
+      this.gravityText.textContent = this.gravityValue.toString();
+    });
   }
 
   randomShape(x: number, y: number) {
