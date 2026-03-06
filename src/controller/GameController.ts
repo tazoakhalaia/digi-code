@@ -2,6 +2,7 @@ import { Rectangle } from "pixi.js";
 import { ShapeModels } from "../models";
 import { GameView } from "../view";
 import { decreaseGravity, increaseGravity } from "../functions";
+import { colors, shapes } from "../constants";
 
 export class GameController {
   private app = new GameView();
@@ -14,6 +15,7 @@ export class GameController {
   private increaseShape = document.getElementById("increaseShapes")!;
   private decreaseShape = document.getElementById("decreaseShapes")!;
   private shapesText = document.getElementById("shapesPerSecond")!;
+  private alertText = document.getElementById("alert")!;
 
   init() {
     this.app.init();
@@ -40,8 +42,6 @@ export class GameController {
   }
 
   randomShape(x: number, y: number) {
-    const shapes = ["cloud", "circle", "square", "triangle"];
-    const colors = ["red", "cyan", "green", "blue"];
     const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     this.shapeModel.createShape(
@@ -66,6 +66,8 @@ export class GameController {
     this.app.container.on("pointerdown", (e) => {
       if (this.startFalling) return;
       this.startFalling = true;
+      this.alertText.innerHTML =
+        "You can change shapes count and enable container click after all shape stop falling";
       const { x, y } = e.global;
 
       this.randomShape(x, y);
@@ -76,6 +78,7 @@ export class GameController {
         if (count >= this.spawnRate) {
           clearInterval(spawnInterval);
           this.startFalling = false;
+          this.alertText.innerHTML = "";
           return;
         }
 

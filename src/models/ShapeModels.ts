@@ -1,4 +1,4 @@
-import { Graphics, Ticker, type Container } from "pixi.js";
+import { Graphics, Ticker, Container } from "pixi.js";
 
 export class ShapeModels {
   private ticker = new Ticker();
@@ -51,6 +51,10 @@ export class ShapeModels {
 
       case "triangle":
         shape.poly([0, -50, 50, 50, -50, 50]).fill(color);
+        break;
+
+      case "ellipse":
+        shape.ellipse(0, 0, 80, 40).fill(color);
         break;
 
       case "cloud":

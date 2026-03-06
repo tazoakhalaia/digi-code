@@ -1,0 +1,22 @@
+export const shapes = ["cloud", "circle", "square", "triangle", "ellipse"];
+export const colors = [
+  "red",
+  "cyan",
+  "green",
+  "blue",
+  "yellow",
+  "magenta",
+  "orange",
+  "purple",
+  "pink",
+  "brown",
+  "gray",
+  "black",
+  "white",
+  "lightblue",
+  "lightgreen",
+  "lightyellow",
+  "lightcyan",
+  "lightmagenta",
+  "lightgray",
+];

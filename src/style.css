@@ -18,3 +18,9 @@ button {
   height: 50px;
   font-size: 14px;
 }
+
+#alert {
+  position: fixed;
+  color: red;
+  font-size: 24px;
+}
