@@ -1,18 +1,25 @@
-import { Application, Container } from "pixi.js";
+import { Application, Container, Graphics } from "pixi.js";
 
 export class GameView {
   private app = new Application();
-  private container = new Container();
+  private graphics?: Graphics;
+  public container = new Container();
 
   async init() {
     await this.app.init({
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: window.innerWidth - 50,
+      height: window.innerHeight - 50,
       antialias: true,
-      backgroundColor: 0x1099bb,
+      backgroundAlpha: 0.3,
     });
 
+    const canvas = document.getElementById("app");
+    this.graphics = new Graphics()
+      .rect(0, 0, window.innerWidth - 50, window.innerHeight - 50)
+      .stroke("black");
+    this.container.addChild(this.graphics);
+
     this.app.stage.addChild(this.container);
-    document.body.appendChild(this.app.canvas);
+    if (canvas) canvas.appendChild(this.app.canvas);
   }
 }
